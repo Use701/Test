@@ -1,18 +1,42 @@
-// A conceptual look at how scripts gather device details
 function collectDeviceData() {
-    const deviceFingerprint = {
-        // Reads your exact inner screen dimensions
-        screenHeight: window.innerHeight,
-        screenWidth: window.innerWidth,
-        
-        // Reads the exact operating system and browser version string
-        browserInfo: navigator.userAgent,
-        
-        // Reads the language and timezone of your machine
+    const deviceData = {
+        // Screen / browser window
+        screenWidth: window.screen.width,
+        screenHeight: window.screen.height,
+        availableScreenWidth: window.screen.availWidth,
+        availableScreenHeight: window.screen.availHeight,
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight,
+        pixelRatio: window.devicePixelRatio,
+
+        // Browser
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
         language: navigator.language,
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+        languages: navigator.languages,
+
+        // Device/browser capabilities
+        cookiesEnabled: navigator.cookieEnabled,
+        online: navigator.onLine,
+        hardwareConcurrency: navigator.hardwareConcurrency,
+        deviceMemory: navigator.deviceMemory || "Not available",
+        maxTouchPoints: navigator.maxTouchPoints,
+
+        // Location/time settings
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        timezoneOffset: new Date().getTimezoneOffset(),
+
+        // Page information
+        pageURL: window.location.href,
+        referrer: document.referrer,
+
+        // Current time
+        collectedAt: new Date().toISOString()
     };
-    
-    // In a tracking scenario, this data is sent back to a server to log you
-    console.log("Device profile collected:", deviceFingerprint);
+
+    console.log("Device information:", deviceData);
+
+    return deviceData;
 }
+
+collectDeviceData();
